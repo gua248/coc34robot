@@ -1,0 +1,17 @@
+[
+ [1,"EK","key down",[32,"Space",0]],
+ [1,"EK","key down",[68,"D",0]],
+ [1,"EK","key up",[32,"Space",0]],
+ [250,"EK","key down",[190,"Oem_Period",0]],
+ [150,"EK","key up",[190,"Oem_Period",0]],
+ [1,"EK","key down",[32,"Space",0]],
+ [50,"EK","key up",[32,"Space",0]],
+ [1,"EK","key up",[68,"D",0]],
+
+ [1,"EK","key down",[65,"A",0]],
+ [100,"EK","key down",[87,"W",0]],
+ [50,"EK","key up",[87,"W",0]],
+ [100,"EK","key down",[190,"Oem_Period",0]],
+ [150,"EK","key up",[190,"Oem_Period",0]],
+ [60,"EK","key up",[65,"A",0]]
+]

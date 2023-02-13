@@ -1,0 +1,18 @@
+[  // chop 2nd
+ [15,"EK","key down",[65,"A",0]],
+ [104,"EK","key down",[190,"Oem_Period",0]],
+ [125,"EK","key up",[190,"Oem_Period",0]],
+ [70,"EK","key down",[87,"W",0]],
+ [40,"EK","key down",[32,"Space",0]],
+ [15,"EK","key up",[65,"A",0]],
+ [15,"EK","key down",[68,"D",0]],
+ [15,"EK","key up",[87,"W",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [120,"EK","key down",[190,"Oem_Period",0]],
+ [116,"EK","key up",[190,"Oem_Period",0]],
+ [80,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[191,"Oem_2",0]],
+ [100,"EK","key up",[68,"D",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [500,"EK","key up",[191,"Oem_2",0]]
+]

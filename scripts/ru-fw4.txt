@@ -1,0 +1,21 @@
+[  // 1 choco
+ [800,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[65,"A",0]],
+ [80,"EK","key up",[32,"Space",0]],
+ [160,"EK","key down",[32,"Space",0]],
+ [15,"EK","key up",[65,"A",0]],
+ [15,"EK","key down",[68,"D",0]],
+ [92,"EK","key up",[32,"Space",0]],
+ [60,"EK","key down",[190,"Oem_Period",0]],
+ [156,"EK","key up",[190,"Oem_Period",0]],
+
+ [140,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[83,"S",0]],
+ [15,"EK","key up",[68,"D",0]],
+ [88,"EK","key up",[32,"Space",0]],
+ [176,"EK","key down",[32,"Space",0]],
+ [96,"EK","key up",[32,"Space",0]],
+ [90,"EK","key down",[32,"Space",0]],
+ [100,"EK","key up",[32,"Space",0]],
+ [1,"EK","key up",[83,"S",0]]
+]

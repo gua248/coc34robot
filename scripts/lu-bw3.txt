@@ -1,0 +1,14 @@
+[  // last round
+ [800,"EK","key down",[65,"A",0]],
+ [200,"EK","key down",[190,"Oem_Period",0]],
+ [70,"EK","key up",[190,"Oem_Period",0]],
+ [80,"EK","key up",[65,"A",0]],
+ [15,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[83,"S",0]],
+ [70,"EK","key up",[32,"Space",0]],
+ [220,"EK","key down",[32,"Space",0]],
+ [60,"EK","key up",[32,"Space",0]],
+ [180,"EK","key down",[32,"Space",0]],
+ [100,"EK","key up",[32,"Space",0]],
+ [1,"EK","key up",[83,"S",0]]
+]

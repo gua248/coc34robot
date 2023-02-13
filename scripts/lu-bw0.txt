@@ -1,0 +1,32 @@
+[  // 2 sausage 0 onion
+ [800,"EK","key down",[68,"D",0]],
+ [163,"EK","key down",[87,"W",0]],
+ [100,"EK","key up",[68,"D",0]],
+ [40,"EK","key down",[32,"Space",0]],
+   
+ [15,"EK","key down",[68,"D",0]],
+ [60,"EK","key down",[191,"Oem_2",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [15,"EK","key up",[191,"Oem_2",0]],
+ [15,"EK","key up",[68,"D",0]],
+ [400,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[68,"D",0]],
+ [15,"EK","key up",[87,"W",0]],
+ [15,"EK","key down",[191,"Oem_2",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [70,"EK","key up",[68,"D",0]],
+ [15,"EK","key up",[191,"Oem_2",0]],
+
+ [15,"EK","key down",[65,"A",0]],
+ [120,"EK","key down",[190,"Oem_Period",0]],
+ [140,"EK","key up",[190,"Oem_Period",0]],
+ [200,"EK","key up",[65,"A",0]],
+ [15,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[83,"S",0]],
+ [70,"EK","key up",[32,"Space",0]],
+ [220,"EK","key down",[32,"Space",0]],
+ [60,"EK","key up",[32,"Space",0]],
+ [150,"EK","key down",[32,"Space",0]],
+ [100,"EK","key up",[32,"Space",0]],
+ [1,"EK","key up",[83,"S",0]]
+]

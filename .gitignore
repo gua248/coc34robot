@@ -1,0 +1,7 @@
+.idea/
+.ipynb_checkpoints/
+__pycache__/
+build/
+dist/
+bug.txt
+*.ipynb

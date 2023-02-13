@@ -1,0 +1,18 @@
+[  // 0 set
+ [1100,"EK","key down",[83,"S",0]],
+ [15,"EK","key down",[68,"D",0]],
+ [100,"EK","key up",[83,"S",0]],
+ [59,"EK","key down",[190,"Oem_Period",0]],
+ [80,"EK","key up",[190,"Oem_Period",0]],
+ [110,"EK","key down",[32,"Space",0]],
+ [1,"EK","key down",[87,"W",0]],
+ [1,"EK","key up",[68,"D",0]],
+ [1,"EK","key up",[32,"Space",0]],
+ [300,"EK","key down",[32,"Space",0]],
+ [15,"EK","key up",[87,"W",0]],
+ [15,"EK","key down",[83,"S",0]],
+ [70,"EK","key up",[32,"Space",0]],
+ [150,"EK","key down",[32,"Space",0]],
+ [100,"EK","key up",[32,"Space",0]],
+ [1,"EK","key up",[83,"S",0]]
+]
