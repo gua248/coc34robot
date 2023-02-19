@@ -11,7 +11,7 @@
  [15,"EK","key up",[32,"Space",0]],
  
  [15,"EK","key down",[68,"D",0]],
- [140,"EK","key down",[32,"Space",0]],
+ [180,"EK","key down",[32,"Space",0]],
  [30,"EK","key up",[68,"D",0]],
  [15,"EK","key down",[191,"Oem_2",0]],
  [15,"EK","key up",[191,"Oem_2",0]],

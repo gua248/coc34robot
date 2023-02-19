@@ -17,7 +17,7 @@ class Ui_UIView(object):
     def setupUi(self, UIView):
         if not UIView.objectName():
             UIView.setObjectName(u"UIView")
-        UIView.resize(551, 421)
+        UIView.resize(551, 541)
         UIView.setMinimumSize(QSize(0, 0))
         UIView.setMaximumSize(QSize(16777215, 16777215))
         icon = QIcon()
@@ -28,7 +28,7 @@ class Ui_UIView(object):
         self.centralwidget.setMinimumSize(QSize(0, 0))
         self.groupBox = QGroupBox(self.centralwidget)
         self.groupBox.setObjectName(u"groupBox")
-        self.groupBox.setGeometry(QRect(10, 10, 241, 131))
+        self.groupBox.setGeometry(QRect(10, 10, 241, 161))
         self.gridLayout_3 = QGridLayout(self.groupBox)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -43,6 +43,8 @@ class Ui_UIView(object):
         self.gridLayout_3.addWidget(self.label_num_order, 0, 0, 1, 1)
 
         self.choice_num_order = QComboBox(self.groupBox)
+        self.choice_num_order.addItem("")
+        self.choice_num_order.addItem("")
         self.choice_num_order.addItem("")
         self.choice_num_order.addItem("")
         self.choice_num_order.addItem("")
@@ -79,7 +81,7 @@ class Ui_UIView(object):
 
         self.groupBox_2 = QGroupBox(self.centralwidget)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(10, 150, 241, 261))
+        self.groupBox_2.setGeometry(QRect(10, 180, 241, 261))
         self.gridLayout = QGridLayout(self.groupBox_2)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setHorizontalSpacing(50)
@@ -164,21 +166,22 @@ class Ui_UIView(object):
 
         self.groupBox_3 = QGroupBox(self.centralwidget)
         self.groupBox_3.setObjectName(u"groupBox_3")
-        self.groupBox_3.setGeometry(QRect(260, 10, 281, 401))
-        self.verticalLayout = QVBoxLayout(self.groupBox_3)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.groupBox_3.setGeometry(QRect(260, 10, 281, 521))
+        self.gridLayout_6 = QGridLayout(self.groupBox_3)
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.gridLayout_6.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
         self.groupBox_4 = QGroupBox(self.groupBox_3)
         self.groupBox_4.setObjectName(u"groupBox_4")
-        self.formLayout = QFormLayout(self.groupBox_4)
-        self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setHorizontalSpacing(20)
-        self.formLayout.setVerticalSpacing(7)
-        self.formLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_4 = QGridLayout(self.groupBox_4)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_4.setHorizontalSpacing(20)
+        self.gridLayout_4.setVerticalSpacing(7)
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.label_13 = QLabel(self.groupBox_4)
         self.label_13.setObjectName(u"label_13")
 
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.label_13)
+        self.gridLayout_4.addWidget(self.label_13, 0, 0, 1, 1)
 
         self.doubleSpinBox_2 = QDoubleSpinBox(self.groupBox_4)
         self.doubleSpinBox_2.setObjectName(u"doubleSpinBox_2")
@@ -186,12 +189,12 @@ class Ui_UIView(object):
         self.doubleSpinBox_2.setMaximum(2.500000000000000)
         self.doubleSpinBox_2.setSingleStep(0.100000000000000)
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.doubleSpinBox_2)
+        self.gridLayout_4.addWidget(self.doubleSpinBox_2, 0, 1, 1, 1)
 
         self.label_14 = QLabel(self.groupBox_4)
         self.label_14.setObjectName(u"label_14")
 
-        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label_14)
+        self.gridLayout_4.addWidget(self.label_14, 1, 0, 1, 1)
 
         self.doubleSpinBox_3 = QDoubleSpinBox(self.groupBox_4)
         self.doubleSpinBox_3.setObjectName(u"doubleSpinBox_3")
@@ -199,12 +202,12 @@ class Ui_UIView(object):
         self.doubleSpinBox_3.setMaximum(2.500000000000000)
         self.doubleSpinBox_3.setSingleStep(0.100000000000000)
 
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.doubleSpinBox_3)
+        self.gridLayout_4.addWidget(self.doubleSpinBox_3, 1, 1, 1, 1)
 
         self.label_12 = QLabel(self.groupBox_4)
         self.label_12.setObjectName(u"label_12")
 
-        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.label_12)
+        self.gridLayout_4.addWidget(self.label_12, 2, 0, 1, 1)
 
         self.doubleSpinBox_31 = QDoubleSpinBox(self.groupBox_4)
         self.doubleSpinBox_31.setObjectName(u"doubleSpinBox_31")
@@ -212,21 +215,21 @@ class Ui_UIView(object):
         self.doubleSpinBox_31.setMaximum(2.500000000000000)
         self.doubleSpinBox_31.setSingleStep(0.100000000000000)
 
-        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.doubleSpinBox_31)
+        self.gridLayout_4.addWidget(self.doubleSpinBox_31, 2, 1, 1, 1)
 
 
-        self.verticalLayout.addWidget(self.groupBox_4)
+        self.gridLayout_6.addWidget(self.groupBox_4, 0, 0, 1, 1)
 
         self.groupBox_5 = QGroupBox(self.groupBox_3)
         self.groupBox_5.setObjectName(u"groupBox_5")
-        self.formLayout_2 = QFormLayout(self.groupBox_5)
-        self.formLayout_2.setObjectName(u"formLayout_2")
-        self.formLayout_2.setHorizontalSpacing(34)
-        self.formLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_5 = QGridLayout(self.groupBox_5)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.gridLayout_5.setHorizontalSpacing(34)
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.label_8 = QLabel(self.groupBox_5)
         self.label_8.setObjectName(u"label_8")
 
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.label_8)
+        self.gridLayout_5.addWidget(self.label_8, 0, 0, 1, 1)
 
         self.doubleSpinBox_top = QDoubleSpinBox(self.groupBox_5)
         self.doubleSpinBox_top.setObjectName(u"doubleSpinBox_top")
@@ -235,12 +238,12 @@ class Ui_UIView(object):
         self.doubleSpinBox_top.setMaximum(0.500000000000000)
         self.doubleSpinBox_top.setSingleStep(0.050000000000000)
 
-        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.doubleSpinBox_top)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_top, 0, 1, 1, 1)
 
         self.label_9 = QLabel(self.groupBox_5)
         self.label_9.setObjectName(u"label_9")
 
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_9)
+        self.gridLayout_5.addWidget(self.label_9, 1, 0, 1, 1)
 
         self.doubleSpinBox_lbottom = QDoubleSpinBox(self.groupBox_5)
         self.doubleSpinBox_lbottom.setObjectName(u"doubleSpinBox_lbottom")
@@ -249,23 +252,62 @@ class Ui_UIView(object):
         self.doubleSpinBox_lbottom.setMaximum(0.500000000000000)
         self.doubleSpinBox_lbottom.setSingleStep(0.050000000000000)
 
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.doubleSpinBox_lbottom)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_lbottom, 1, 1, 1, 1)
 
         self.label_10 = QLabel(self.groupBox_5)
         self.label_10.setObjectName(u"label_10")
 
-        self.formLayout_2.setWidget(2, QFormLayout.LabelRole, self.label_10)
+        self.gridLayout_5.addWidget(self.label_10, 2, 0, 1, 1)
 
         self.doubleSpinBox_rbottom = QDoubleSpinBox(self.groupBox_5)
         self.doubleSpinBox_rbottom.setObjectName(u"doubleSpinBox_rbottom")
         self.doubleSpinBox_rbottom.setMaximum(0.500000000000000)
         self.doubleSpinBox_rbottom.setSingleStep(0.050000000000000)
 
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.doubleSpinBox_rbottom)
+        self.gridLayout_5.addWidget(self.doubleSpinBox_rbottom, 2, 1, 1, 1)
 
 
-        self.verticalLayout.addWidget(self.groupBox_5)
+        self.gridLayout_6.addWidget(self.groupBox_5, 1, 0, 1, 1)
 
+        self.groupBox_6 = QGroupBox(self.groupBox_3)
+        self.groupBox_6.setObjectName(u"groupBox_6")
+        self.gridLayout_2 = QGridLayout(self.groupBox_6)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.gridLayout_2.setHorizontalSpacing(10)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.label_11 = QLabel(self.groupBox_6)
+        self.label_11.setObjectName(u"label_11")
+
+        self.gridLayout_2.addWidget(self.label_11, 0, 0, 1, 1)
+
+        self.choice_donut = QComboBox(self.groupBox_6)
+        self.choice_donut.addItem("")
+        self.choice_donut.addItem("")
+        self.choice_donut.addItem("")
+        self.choice_donut.setObjectName(u"choice_donut")
+
+        self.gridLayout_2.addWidget(self.choice_donut, 0, 1, 1, 1)
+
+        self.label_15 = QLabel(self.groupBox_6)
+        self.label_15.setObjectName(u"label_15")
+
+        self.gridLayout_2.addWidget(self.label_15, 1, 0, 1, 1)
+
+        self.checkBox_onion = QCheckBox(self.groupBox_6)
+        self.checkBox_onion.setObjectName(u"checkBox_onion")
+
+        self.gridLayout_2.addWidget(self.checkBox_onion, 1, 1, 1, 1)
+
+
+        self.gridLayout_6.addWidget(self.groupBox_6, 2, 0, 1, 1)
+
+        self.groupBox_7 = QGroupBox(self.centralwidget)
+        self.groupBox_7.setObjectName(u"groupBox_7")
+        self.groupBox_7.setGeometry(QRect(10, 450, 241, 81))
+        self.choice_theme = QComboBox(self.groupBox_7)
+        self.choice_theme.setObjectName(u"choice_theme")
+        self.choice_theme.setGeometry(QRect(10, 40, 221, 31))
         UIView.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(UIView)
@@ -273,6 +315,7 @@ class Ui_UIView(object):
         self.choice_num_order.setCurrentIndex(-1)
         self.choice_start.setCurrentIndex(-1)
         self.choice_stop.setCurrentIndex(-1)
+        self.choice_donut.setCurrentIndex(-1)
 
 
         QMetaObject.connectSlotsByName(UIView)
@@ -286,6 +329,8 @@ class Ui_UIView(object):
         self.choice_num_order.setItemText(0, QCoreApplication.translate("UIView", u"29", None))
         self.choice_num_order.setItemText(1, QCoreApplication.translate("UIView", u"30", None))
         self.choice_num_order.setItemText(2, QCoreApplication.translate("UIView", u"31", None))
+        self.choice_num_order.setItemText(3, QCoreApplication.translate("UIView", u"32", None))
+        self.choice_num_order.setItemText(4, QCoreApplication.translate("UIView", u"32X", None))
 
         self.choice_num_order.setCurrentText("")
         self.label_start.setText(QCoreApplication.translate("UIView", u"\u542f\u52a8\u952e/Start", None))
@@ -314,5 +359,14 @@ class Ui_UIView(object):
         self.label_8.setText(QCoreApplication.translate("UIView", u"\u5de6\u4e0a&\u53f3\u4e0a/Top", None))
         self.label_9.setText(QCoreApplication.translate("UIView", u"\u5de6\u4e0b/Bottom left", None))
         self.label_10.setText(QCoreApplication.translate("UIView", u"\u53f3\u4e0b/Bottom right", None))
+        self.groupBox_6.setTitle(QCoreApplication.translate("UIView", u"\u5176\u4ed6/Others", None))
+        self.label_11.setText(QCoreApplication.translate("UIView", u"\u731c\u86cb\u7cd5/7th donut", None))
+        self.choice_donut.setItemText(0, QCoreApplication.translate("UIView", u"\u9ed1/Choco", None))
+        self.choice_donut.setItemText(1, QCoreApplication.translate("UIView", u"\u7ea2/Berry", None))
+        self.choice_donut.setItemText(2, QCoreApplication.translate("UIView", u"\u90fd\u8981/Both", None))
+
+        self.label_15.setText(QCoreApplication.translate("UIView", u"+1\u8471/+1onion", None))
+        self.checkBox_onion.setText("")
+        self.groupBox_7.setTitle(QCoreApplication.translate("UIView", u"\u4e3b\u9898/Theme", None))
     # retranslateUi
 

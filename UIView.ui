@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>551</width>
-    <height>421</height>
+    <height>541</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -42,7 +42,7 @@
       <x>10</x>
       <y>10</y>
       <width>241</width>
-      <height>131</height>
+      <height>161</height>
      </rect>
     </property>
     <property name="title">
@@ -104,6 +104,16 @@
          <string>31</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>32</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>32X</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item row="1" column="0">
@@ -163,7 +173,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
+      <y>180</y>
       <width>241</width>
       <height>261</height>
      </rect>
@@ -296,13 +306,16 @@
       <x>260</x>
       <y>10</y>
       <width>281</width>
-      <height>401</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="title">
      <string>选项/Option</string>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QGridLayout" name="gridLayout_6" rowminimumheight="0,0,0">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
      <property name="leftMargin">
       <number>0</number>
      </property>
@@ -315,18 +328,12 @@
      <property name="bottomMargin">
       <number>0</number>
      </property>
-     <item>
+     <item row="0" column="0">
       <widget class="QGroupBox" name="groupBox_4">
        <property name="title">
         <string>递盘延时（秒）/Plate delay</string>
        </property>
-       <layout class="QFormLayout" name="formLayout">
-        <property name="horizontalSpacing">
-         <number>20</number>
-        </property>
-        <property name="verticalSpacing">
-         <number>7</number>
-        </property>
+       <layout class="QGridLayout" name="gridLayout_4">
         <property name="leftMargin">
          <number>0</number>
         </property>
@@ -338,6 +345,12 @@
         </property>
         <property name="bottomMargin">
          <number>0</number>
+        </property>
+        <property name="horizontalSpacing">
+         <number>20</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>7</number>
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="label_13">
@@ -406,15 +419,12 @@
        </layout>
       </widget>
      </item>
-     <item>
+     <item row="1" column="0">
       <widget class="QGroupBox" name="groupBox_5">
        <property name="title">
         <string>落地延时（秒）/Landing delay</string>
        </property>
-       <layout class="QFormLayout" name="formLayout_2">
-        <property name="horizontalSpacing">
-         <number>34</number>
-        </property>
+       <layout class="QGridLayout" name="gridLayout_5">
         <property name="leftMargin">
          <number>0</number>
         </property>
@@ -426,6 +436,9 @@
         </property>
         <property name="bottomMargin">
          <number>0</number>
+        </property>
+        <property name="horizontalSpacing">
+         <number>34</number>
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="label_8">
@@ -493,7 +506,100 @@
        </layout>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QGroupBox" name="groupBox_6">
+       <property name="title">
+        <string>其他/Others</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <property name="horizontalSpacing">
+         <number>10</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>猜蛋糕/7th donut</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="choice_donut">
+          <property name="currentIndex">
+           <number>-1</number>
+          </property>
+          <item>
+           <property name="text">
+            <string>黑/Choco</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>红/Berry</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>都要/Both</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>+1葱/+1onion</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox_onion">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
     </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>450</y>
+      <width>241</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>主题/Theme</string>
+    </property>
+    <widget class="QComboBox" name="choice_theme">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>

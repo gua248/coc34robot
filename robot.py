@@ -15,9 +15,10 @@ from UIView import Ui_UIView
 from PIL import Image
 from pynput.keyboard import Key, Listener
 from threading import Thread
-from qt_material import apply_stylesheet
+from qt_material import QtStyleTools, list_themes
 
-#v1.0
+
+# v1.0
 # 阈值####################
 # 键位未设置弹出对话框#########
 # 第一个接葱################
@@ -26,8 +27,6 @@ from qt_material import apply_stylesheet
 # resize ##########
 # 上菜脚本########
 # 落地延时##########
-
-# 表情
 
 
 vk_dict = {chr(x).lower(): x for x in list(range(48, 58)) + list(range(65, 91))}
@@ -144,11 +143,12 @@ def match_img(pos, img_src, thresh, debug=0):
     return diff < thresh
 
 
-class UIFunc(QMainWindow, Ui_UIView):
+class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
     msg_signal = Signal()
 
-    def __init__(self):
+    def __init__(self, app):
         super(UIFunc, self).__init__()
+        self.app = app
         self.setupUi(self)
         reg_exp = QRegExp(r"[0-9a-zA-Z,/;'=\.\[\]\\\-]")
         self.lineEdit_dict = {
@@ -173,6 +173,11 @@ class UIFunc(QMainWindow, Ui_UIView):
         self.doubleSpinBox_top.setValue(float(self.config.value('Config/LandingDelayTop')))
         self.doubleSpinBox_lbottom.setValue(float(self.config.value('Config/LandingDelayLBottom')))
         self.doubleSpinBox_rbottom.setValue(float(self.config.value('Config/LandingDelayRBottom')))
+        self.checkBox_onion.setChecked(self.config.value('Config/Onion') == 'true')
+        self.choice_donut.setCurrentIndex(int(self.config.value('Config/Donut')))
+        self.choice_theme.addItems(list_themes())
+        self.choice_theme.setCurrentText(self.config.value('Config/Theme'))
+
         self.set_keymap_text()
 
         self.choice_num_order.currentIndexChanged.connect(self.on_config_change)
@@ -184,12 +189,16 @@ class UIFunc(QMainWindow, Ui_UIView):
         self.doubleSpinBox_top.valueChanged.connect(self.on_config_change)
         self.doubleSpinBox_lbottom.valueChanged.connect(self.on_config_change)
         self.doubleSpinBox_rbottom.valueChanged.connect(self.on_config_change)
+        self.checkBox_onion.stateChanged.connect(self.on_config_change)
+        self.choice_donut.currentIndexChanged.connect(self.on_config_change())
         self.start_key = self.stop_key = None
         self.on_config_change()
         for lineEdit in self.lineEdit_dict.values():
             lineEdit.textEdited.connect(self.on_keymap_change)
         self.keymap_dict = dict()
         self.on_keymap_change()
+        self.choice_theme.currentTextChanged.connect(self.on_theme_change)
+        self.on_theme_change()
 
         self.playing = False
         self.msg_signal.connect(lambda: QMessageBox.critical(self, 'Error', '请设置键位'))
@@ -225,6 +234,8 @@ class UIFunc(QMainWindow, Ui_UIView):
         self.config.setValue('Config/LandingDelayTop', self.doubleSpinBox_top.value())
         self.config.setValue('Config/LandingDelayLBottom', self.doubleSpinBox_lbottom.value())
         self.config.setValue('Config/LandingDelayRBottom', self.doubleSpinBox_rbottom.value())
+        self.config.setValue('Config/Onion', self.checkBox_onion.isChecked())
+        self.config.setValue('Config/Donut', self.choice_donut.currentIndex())
         if self.choice_start.currentText().lower() == 'f1':
             self.start_key = Key.f1
         elif self.choice_start.currentText().lower() == 'right shift':
@@ -253,6 +264,10 @@ class UIFunc(QMainWindow, Ui_UIView):
                     v = ':'
                 self.config.setValue('Config/'+name, v)
 
+    def on_theme_change(self):
+        self.apply_stylesheet(self.app, theme=self.choice_theme.currentText())
+        self.config.setValue("Config/Theme", self.choice_theme.currentText())
+
 
 class RobotThread(Thread):
     def __init__(self, frame: UIFunc):
@@ -276,13 +291,15 @@ class RobotThread(Thread):
         return True
 
     def run(self):
-        num_order = int(self.frame.choice_num_order.currentText())
+        num_order = self.frame.choice_num_order.currentText()
         plate_delay2 = self.frame.doubleSpinBox_2.value()
         plate_delay3 = self.frame.doubleSpinBox_3.value()
         plate_delay31 = self.frame.doubleSpinBox_31.value()
         landing_delay_top = self.frame.doubleSpinBox_top.value()
         landing_delay_lb = self.frame.doubleSpinBox_lbottom.value()
         landing_delay_rb = self.frame.doubleSpinBox_rbottom.value()
+        onion = self.frame.checkBox_onion.isChecked()
+        donut = self.frame.choice_donut.currentIndex()
         script_dir = 'scripts/'
         script_dict = {}
         for filename in os.listdir(script_dir):
@@ -305,7 +322,7 @@ class RobotThread(Thread):
             'lu-start4', is_cannoned_to_rb,
             'rb-start', is_4th_dish_placed,
             'rb-4th',
-            'lu-start5', is_cannoned_to_ru,
+            'lu-fw-b1', is_cannoned_to_ru,
             'ru-fw1', is_cannoned_to_lb,
             'wash2',
             'ru-bw1', is_cannoned_to_lu,
@@ -323,19 +340,19 @@ class RobotThread(Thread):
             'ru-bw0', is_cannoned_to_lu,
             'lu-bw1', is_cannoned_to_rb,
             *serve_list,
-            'lu-fw0', is_cannoned_to_ru,
+            'lu-fw-b2', is_cannoned_to_ru,
             'ru-fw3', is_cannoned_to_lb,
             'wash',
             'ru-bw0', is_cannoned_to_lu,
             'lu-bw1', is_cannoned_to_rb,
             *serve_list,
             *lu_stay_list, is_cannoned_to_ru,
-            'ru-fw4', is_cannoned_to_lb,
+            'ru-fw4-choco', is_cannoned_to_lb,
             'wash',
             'ru-bw0', is_cannoned_to_lu,
             'lu-bw1', is_cannoned_to_rb,
             *serve_list,
-            'lu-fw0', is_cannoned_to_ru,
+            'lu-fw-b2', is_cannoned_to_ru,
             'ru-fw3', is_cannoned_to_lb,
             'wash',
             'ru-bw0', is_cannoned_to_lu,
@@ -348,21 +365,49 @@ class RobotThread(Thread):
             'lu-bw3', is_cannoned_to_rb,
             *serve_list
         ]
-        if num_order == 29:
-            all_list[-34] = 'ru-fw5'
-            all_list[-22] = 'ru-fw5'
-            all_list[-8] = 'wash3'
-        elif num_order == 31:
-            all_list[23] = 'lu-fw0'
+        if num_order != '29' and donut == 1:
+            all_list[91] = 'ru-fw4-berry'
+        if num_order != '29' and donut == 2:
+            all_list[91] = 'ru-fw4-both'
+            all_list[94] = 'ru-bw1'
+        if num_order == '29':
+            all_list[91] = 'ru-fw5'
+            all_list[103] = 'ru-fw5'
+            all_list[117] = 'wash3'
+        elif num_order == '31':
+            all_list[23] = 'lu-fw-b2'
             all_list[30] = 'lu-bw0-31'
             all_list[27] = 'wash3'
             all_list.insert(21, is_4th_dish_placed)
             all_list.insert(22, 'rb-start-31')
+        elif num_order in ['32', '32X']:
+            all_list[16] = 'lu-start3-32'
+            all_list[23] = 'lu-fw-b3'
+            all_list[30] = 'lu-bw0-31'
+            all_list[27] = 'wash'
+            all_list.insert(21, is_4th_dish_placed)
+            all_list.insert(22, 'rb-start-31')
+            all_list.insert(21, is_4th_dish_placed)
+            all_list.insert(22, 'rb-start-31')
+            if num_order == '32X':
+                all_list[70] = 'lu-bw1-32'
+                all_list[82] = 'lu-bw1-32'
+                all_list[100] = 'lu-bw1-32'
+                all_list[112] = 'lu-bw1-32' if onion else 'lu-bw0-31'
+                all_list[117] = 'lu-fw-b3'
+                all_list[75] = 'lu-fw-b3'
+                all_list[105] = 'lu-fw-b3'
+                del all_list[57:64]
+                all_list.insert(57, 'lu-fw-b3')
+                del all_list[81:88]
+                all_list.insert(81, 'lu-fw-b3')
+        if num_order != '32X' and onion:
+            all_list.insert(-40, 'lu-start2')
+            all_list.insert(-40, is_chopped)
 
         #####
         # all_list = [is_cannoned_to_rb, 'rb-start',
         #             is_4th_dish_placed, 'rb-start-31', is_4th_dish_placed, 'rb-4th', 'lu-fw5']
-        # all_list = ['lb-put2', 'ru-bw0']
         # all_list = [is_cannoned_to_rb, 'rb-start', is_4th_dish_placed, 'rb-start-31', is_4th_dish_placed, 'rb-4th']
         #####
         steps = len(all_list)
@@ -479,8 +524,7 @@ def resize_layout(ui, ratio_h):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ui = UIFunc()
-    apply_stylesheet(app, theme='dark_lightgreen.xml')
+    ui = UIFunc(app)
     hwnd = 0
     # hwnd = win32gui.FindWindow(None, 'Overcooked! 2')
     wdc = win32gui.GetWindowDC(hwnd)

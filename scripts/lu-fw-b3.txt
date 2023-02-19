@@ -1,0 +1,35 @@
+[  // throw 3
+ [1200,"EK","key down",[83,"S",0]],
+ [15,"EK","key down",[65,"A",0]],
+ [130,"EK","key up",[83,"S",0]],
+ [130,"EK","key down",[32,"Space",0]],
+ [15,"EK","key up",[65,"A",0]],
+ [15,"EK","key down",[68,"D",0]],
+ [15,"EK","key down",[191,"Oem_2",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [150,"EK","key up",[191,"Oem_2",0]],
+ [15,"EK","key up",[68,"D",0]],
+
+ [300,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[191,"Oem_2",0]],
+ [15,"EK","key up",[191,"Oem_2",0]],
+ [15,"EK","key up",[32,"Space",0]],
+
+ [480,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[191,"Oem_2",0]],
+ [15,"EK","key up",[191,"Oem_2",0]],
+ [15,"EK","key up",[32,"Space",0]],
+
+ [15,"EK","key down",[65,"A",0]],
+ [220,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[87,"W",0]],
+ [15,"EK","key up",[65,"A",0]],
+ [105,"EK","key up",[32,"Space",0]],
+ [175,"EK","key down",[32,"Space",0]],
+ [15,"EK","key up",[87,"W",0]],
+ [15,"EK","key down",[83,"S",0]],
+ [60,"EK","key up",[32,"Space",0]],
+ [150,"EK","key down",[32,"Space",0]],
+ [100,"EK","key up",[32,"Space",0]],
+ [1,"EK","key up",[83,"S",0]]
+]
