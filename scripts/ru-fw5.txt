@@ -9,7 +9,7 @@
  [88,"EK","key up",[32,"Space",0]],
  [176,"EK","key down",[32,"Space",0]],
  [100,"EK","key up",[32,"Space",0]],
- [120,"EK","key down",[32,"Space",0]],
+ [90,"EK","key down",[32,"Space",0]],
  [100,"EK","key up",[32,"Space",0]],
  [1,"EK","key up",[83,"S",0]]
 ]

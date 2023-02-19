@@ -211,7 +211,8 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
                     self.playing = True
                     self.robot_thread = RobotThread(self)
                     self.robot_thread.start()
-            elif key == self.stop_key:
+            elif key == self.stop_key and self.playing:
+                self.robot_thread.playing = False
                 self.playing = False
 
         self.listener = Listener(on_press=on_press)
@@ -273,9 +274,11 @@ class RobotThread(Thread):
     def __init__(self, frame: UIFunc):
         super().__init__(name='robot')
         self.frame = frame
+        self.playing = True
 
-    @staticmethod
-    def sleep(sec: float):
+    def sleep(self, sec: float):
+        if not self.playing:
+            return
         t0 = time.time()
         if sec > 0.02:
             time.sleep(sec-0.02)
@@ -285,10 +288,10 @@ class RobotThread(Thread):
                 break
 
     def wait_for(self, is_func):
-        while not is_func():
-            if not self.frame.playing:
-                return False
-        return True
+        while self.playing:
+            if is_func():
+                return True
+        return False
 
     def run(self):
         num_order = self.frame.choice_num_order.currentText()
@@ -412,7 +415,7 @@ class RobotThread(Thread):
         #####
         steps = len(all_list)
         i = 0
-        while i < steps and self.frame.playing:
+        while i < steps:
             task = all_list[i]
             if isinstance(task, str):
                 if task == 'wash2':
@@ -438,11 +441,12 @@ class RobotThread(Thread):
                     self.wait_for(is_dirty_dish_placed)
                     self.run_script_once(script_dict['lb-take1'], thd=self)
                     self.sleep(2.35)
-                    if is_dirty_dish_placed():
-                        self.run_script_once(script_dict['lb-take2'], thd=self)
-                        self.sleep(0.45)
-                    else:
-                        self.sleep(0.6)
+                    if self.playing:
+                        if is_dirty_dish_placed():
+                            self.run_script_once(script_dict['lb-take2'], thd=self)
+                            self.sleep(0.45)
+                        else:
+                            self.sleep(0.6)
                     self.run_script_once(script_dict['lb-put1'], thd=self)
                     self.sleep(2.8 + plate_delay2)
                     self.run_script_once(script_dict['lb-put1'], thd=self)
@@ -461,6 +465,10 @@ class RobotThread(Thread):
                 elif task in [is_cannoned_to_ru, is_cannoned_to_lu, is_cannoned_to_lu0] and landing_delay_top > 0:
                     self.sleep(landing_delay_top)
             i += 1
+            if not self.playing:
+                return
+
+        self.playing = False
         self.frame.playing = False
 
     def parse_script(self, script_path):
@@ -489,13 +497,13 @@ class RobotThread(Thread):
     def run_script_once(self, events, thd):
         steps = len(events)
         i = 0
-        if not self.frame.playing:
+        if not self.playing:
             return False
         while i < steps:
             event = events[i]
             delay, message, vk = event['delay'], event['message'], event['vk']
             thd.sleep(delay / 1000)
-            if not self.frame.playing:
+            if not self.playing:
                 for key in self.frame.keymap_dict.values():
                     vk = vk_dict[key.lower()]
                     win32api.keybd_event(vk, 0, win32con.KEYEVENTF_KEYUP, 0)
