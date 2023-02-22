@@ -14,19 +14,9 @@ from PySide2.QtGui import QRegExpValidator
 from UIView import Ui_UIView
 from PIL import Image
 from pynput.keyboard import Key, Listener
+from inputs import get_gamepad, UnpluggedError
 from threading import Thread
 from qt_material import QtStyleTools, list_themes
-
-
-# v1.0
-# 阈值####################
-# 键位未设置弹出对话框#########
-# 第一个接葱################
-# 16:10############
-# 先递脏碗 洗碗脚本 洗碗延时###########
-# resize ##########
-# 上菜脚本########
-# 落地延时##########
 
 
 vk_dict = {chr(x).lower(): x for x in list(range(48, 58)) + list(range(65, 91))}
@@ -165,8 +155,8 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
 
         self.config = QSettings('config.ini', QSettings.IniFormat)
         self.choice_num_order.setCurrentText(self.config.value('Config/Orders'))
-        self.choice_start.setCurrentText(self.config.value('Config/Start'))
-        self.choice_stop.setCurrentText(self.config.value('Config/Stop'))
+        self.choice_start.setCurrentIndex(int(self.config.value('Config/Start')))
+        self.choice_stop.setCurrentIndex(int(self.config.value('Config/Stop')))
         self.doubleSpinBox_2.setValue(float(self.config.value('Config/PlateDelay2')))
         self.doubleSpinBox_3.setValue(float(self.config.value('Config/PlateDelay3')))
         self.doubleSpinBox_31.setValue(float(self.config.value('Config/PlateDelay31')))
@@ -215,8 +205,22 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
                 self.robot_thread.playing = False
                 self.playing = False
 
-        self.listener = Listener(on_press=on_press)
-        self.listener.start()
+        self.keyboard_listener = Listener(on_press=on_press)
+        self.keyboard_listener.start()
+
+        def monitor_gamepad():
+            while True:
+                time.sleep(0.1)
+                try:
+                    events = get_gamepad()
+                    for event in events:
+                        if event.state == 1:
+                            on_press(event.code)
+                except UnpluggedError:
+                    pass
+        self.gamepad_listener = Thread(target=monitor_gamepad)
+        self.gamepad_listener.daemon = True
+        self.gamepad_listener.start()
 
     def set_keymap_text(self):
         for name, lineEdit in self.lineEdit_dict.items():
@@ -227,8 +231,8 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
 
     def on_config_change(self):
         self.config.setValue('Config/Orders', self.choice_num_order.currentText())
-        self.config.setValue('Config/Start', self.choice_start.currentText())
-        self.config.setValue('Config/Stop', self.choice_stop.currentText())
+        self.config.setValue('Config/Start', self.choice_start.currentIndex())
+        self.config.setValue('Config/Stop', self.choice_stop.currentIndex())
         self.config.setValue('Config/PlateDelay2', self.doubleSpinBox_2.value())
         self.config.setValue('Config/PlateDelay3', self.doubleSpinBox_3.value())
         self.config.setValue('Config/PlateDelay31', self.doubleSpinBox_31.value())
@@ -237,11 +241,10 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.config.setValue('Config/LandingDelayRBottom', self.doubleSpinBox_rbottom.value())
         self.config.setValue('Config/Onion', self.checkBox_onion.isChecked())
         self.config.setValue('Config/Donut', self.choice_donut.currentIndex())
-        if self.choice_start.currentText().lower() == 'f1':
-            self.start_key = Key.f1
-        elif self.choice_start.currentText().lower() == 'right shift':
-            self.start_key = Key.shift_r
-        self.stop_key = Key[self.choice_stop.currentText().lower()]
+        start_dict = {0: Key.f1, 1: Key.shift_r, 2: "BTN_START"}
+        stop_dict = {0: Key.esc, 1: "BTN_SELECT"}
+        self.start_key = start_dict[self.choice_start.currentIndex()]
+        self.stop_key = stop_dict[self.choice_stop.currentIndex()]
 
     def on_keymap_change(self):
         dict0 = {

@@ -6,8 +6,8 @@
  [15,"EK","key down",[32,"Space",0]],
  [15,"EK","key down",[83,"S",0]],
  [70,"EK","key up",[32,"Space",0]],
- [220,"EK","key down",[32,"Space",0]],
- [15,"EK","key up",[83,"S",0]],
+ [240,"EK","key up",[83,"S",0]],
+ [15,"EK","key down",[32,"Space",0]],
  [15,"EK","key up",[32,"Space",0]],
  
  [15,"EK","key down",[68,"D",0]],

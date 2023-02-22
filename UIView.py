@@ -65,6 +65,7 @@ class Ui_UIView(object):
         self.choice_start = QComboBox(self.groupBox)
         self.choice_start.addItem("")
         self.choice_start.addItem("")
+        self.choice_start.addItem("")
         self.choice_start.setObjectName(u"choice_start")
         sizePolicy.setHeightForWidth(self.choice_start.sizePolicy().hasHeightForWidth())
         self.choice_start.setSizePolicy(sizePolicy)
@@ -72,6 +73,7 @@ class Ui_UIView(object):
         self.gridLayout_3.addWidget(self.choice_start, 1, 1, 1, 1)
 
         self.choice_stop = QComboBox(self.groupBox)
+        self.choice_stop.addItem("")
         self.choice_stop.addItem("")
         self.choice_stop.setObjectName(u"choice_stop")
         sizePolicy.setHeightForWidth(self.choice_stop.sizePolicy().hasHeightForWidth())
@@ -336,8 +338,10 @@ class Ui_UIView(object):
         self.label_start.setText(QCoreApplication.translate("UIView", u"\u542f\u52a8\u952e/Start", None))
         self.choice_start.setItemText(0, QCoreApplication.translate("UIView", u"F1", None))
         self.choice_start.setItemText(1, QCoreApplication.translate("UIView", u"Right Shift", None))
+        self.choice_start.setItemText(2, QCoreApplication.translate("UIView", u"\u624b\u67c4Start", None))
 
         self.choice_stop.setItemText(0, QCoreApplication.translate("UIView", u"Esc", None))
+        self.choice_stop.setItemText(1, QCoreApplication.translate("UIView", u"\u624b\u67c4Select", None))
 
         self.choice_stop.setCurrentText("")
         self.groupBox_2.setTitle(QCoreApplication.translate("UIView", u"\u952e\u4f4d/Key map", None))
