@@ -210,13 +210,13 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
 
         def monitor_gamepad():
             while True:
-                time.sleep(0.1)
                 try:
                     events = get_gamepad()
                     for event in events:
                         if event.state == 1:
                             on_press(event.code)
                 except UnpluggedError:
+                    time.sleep(0.001)
                     pass
         self.gamepad_listener = Thread(target=monitor_gamepad)
         self.gamepad_listener.daemon = True
