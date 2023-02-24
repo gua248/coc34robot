@@ -202,7 +202,7 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
         self.doubleSpinBox_lbottom.valueChanged.connect(self.on_config_change)
         self.doubleSpinBox_rbottom.valueChanged.connect(self.on_config_change)
         self.checkBox_onion.stateChanged.connect(self.on_config_change)
-        self.choice_donut.currentIndexChanged.connect(self.on_config_change())
+        self.choice_donut.currentIndexChanged.connect(self.on_config_change)
         self.start_key = self.stop_key = None
         self.on_config_change()
         for lineEdit in self.lineEdit_dict.values():

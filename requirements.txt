@@ -1,0 +1,8 @@
+# Python 3.10.9
+
+numpy==1.23.2
+pyside2==5.15.2.1
+pillow==9.3.0
+pywin32==305
+pynput==1.7.6
+qt-material==2.14

@@ -1,5 +1,5 @@
 [  // 0 set
- [1100,"EK","key down",[83,"S",0]],
+ [1130,"EK","key down",[83,"S",0]],
  [15,"EK","key down",[68,"D",0]],
  [100,"EK","key up",[83,"S",0]],
  [59,"EK","key down",[190,"Oem_Period",0]],
