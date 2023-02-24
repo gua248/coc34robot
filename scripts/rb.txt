@@ -19,7 +19,7 @@
  [140,"EK","key up",[87,"W",0]],
  [100,"EK","key down",[190,"Oem_Period",0]],
 
- [240,"EK","key down",[32,"Space",0]],
+ [280,"EK","key down",[32,"Space",0]],
  [1,"EK","key up",[65,"A",0]],
  [1,"EK","key down",[68,"D",0]],
  [1,"EK","key up",[32,"Space",0]],

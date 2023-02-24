@@ -1,0 +1,16 @@
+[  // take(chop) onion
+ [15,"EK","key down",[65,"A",0]],
+ [180,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[83,"S",0]],
+ [15,"EK","key up",[65,"A",0]],
+ [60,"EK","key down",[190,"Oem_Period",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [50,"EK","key down",[68,"D",0]],
+ [50,"EK","key up",[190,"Oem_Period",0]],
+ [50,"EK","key up",[83,"S",0]],
+ [40,"EK","key down",[32,"Space",0]],
+ [15,"EK","key down",[191,"Oem_2",0]],
+ [15,"EK","key up",[68,"D",0]],
+ [15,"EK","key up",[32,"Space",0]],
+ [15,"EK","key up",[191,"Oem_2",0]],
+]

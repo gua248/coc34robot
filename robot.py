@@ -27,7 +27,8 @@ pos_chop_progress_bar = (692, 346, 748, 362)
 pos_dirty_dish = (628, 787, 710, 865)
 pos_rpot = (828, 272, 869, 312)
 pos_lpot = (767, 272, 808, 312)
-pos_serving_table = (1227, 723, 1312, 793)
+pos_serving_table2 = (1227, 723, 1312, 793)
+pos_serving_table1 = (1202, 668, 1287, 738)
 pos_lucannon0 = (536, 483, 623, 553)
 pos_lucannon = (563, 392, 640, 460)
 pos_lbcannon = (530, 787, 623, 865)
@@ -39,23 +40,22 @@ img_chop_progress_bar = np.array(Image.open('images/chop.png'), dtype=float)
 img_dirty_dish = np.array(Image.open('images/dirty.png'), dtype=float)
 img_rpot = np.array(Image.open('images/rpot.png'), dtype=float)
 img_lpot = np.array(Image.open('images/lpot.png'), dtype=float)
-img_serving_table = np.array(Image.open('images/table.png'), dtype=float)
 img_lucannon = np.array(Image.open('images/lucannon.png'), dtype=float)
 img_lucannon0 = np.array(Image.open('images/lucannon0.png'), dtype=float)
 img_lbcannon = np.array(Image.open('images/lbcannon.png'), dtype=float)
 img_rucannon = np.array(Image.open('images/rucannon.png'), dtype=float)
 img_rbcannon = np.array(Image.open('images/rbcannon.png'), dtype=float)
 
-is_cannoned_to_lu = lambda: not match_img(pos_lucannon, img_lucannon, thresh=50)
-is_cannoned_to_lu0 = lambda: not match_img(pos_lucannon0, img_lucannon0, thresh=50)
-is_cannoned_to_lb = lambda: not match_img(pos_lbcannon, img_lbcannon, thresh=58)
-is_cannoned_to_ru = lambda: not match_img(pos_rucannon, img_rucannon, thresh=55)
-is_cannoned_to_rb = lambda: not match_img(pos_rbcannon, img_rbcannon, thresh=58)
-is_chopped = lambda: not match_img(pos_chop_progress_bar, img_chop_progress_bar, thresh=70)
-is_dirty_dish_placed = lambda: match_img(pos_dirty_dish, img_dirty_dish, thresh=35)
-is_rpot_empty = lambda: not match_img(pos_rpot, img_rpot, thresh=40)
-is_lpot_empty = lambda: not match_img(pos_lpot, img_lpot, thresh=50)
-is_4th_dish_placed = lambda: not match_img(pos_serving_table, img_serving_table, thresh=25)
+
+def is_cannoned_to_lu(): return not match_img(pos_lucannon, img_lucannon, thresh=50)
+def is_cannoned_to_lu0(): return not match_img(pos_lucannon0, img_lucannon0, thresh=50)
+def is_cannoned_to_lb(): return not match_img(pos_lbcannon, img_lbcannon, thresh=58)
+def is_cannoned_to_ru(): return not match_img(pos_rucannon, img_rucannon, thresh=55)
+def is_cannoned_to_rb(): return not match_img(pos_rbcannon, img_rbcannon, thresh=58)
+def is_chopped(): return not match_img(pos_chop_progress_bar, img_chop_progress_bar, thresh=70)
+def is_dirty_dish_placed(): return match_img(pos_dirty_dish, img_dirty_dish, thresh=35)
+def is_rpot_empty(): return not match_img(pos_rpot, img_rpot, thresh=40)
+def is_lpot_empty(): return not match_img(pos_lpot, img_lpot, thresh=50)
 
 
 def screenshot():
@@ -116,9 +116,7 @@ class Offset:
         return cls.offset
 
 
-def match_img(pos, img_src, thresh, debug=0):
-    img_screen = screenshot()
-    offset = Offset.update(img_screen)
+def get_tile(img_screen, pos, offset):
     pos_new = (pos[0] + offset[0], pos[1] + offset[1], pos[2] + offset[0], pos[3] + offset[1])
     scale = img_screen.size[1] / 1080
     pos_new = tuple(round(x * scale) for x in pos_new)
@@ -127,10 +125,34 @@ def match_img(pos, img_src, thresh, debug=0):
     tile = img_screen.crop(pos_new).resize((w, h))
     tile = np.array(tile, dtype=float)
     tile = tile[..., [2, 1, 0]]
+    return tile
+
+
+def match_img(pos, img_src, thresh, debug=0):
+    img_screen = screenshot()
+    offset = Offset.update(img_screen)
+    tile = get_tile(img_screen, pos, offset)
     diff = np.mean(np.abs(tile - img_src))
     if debug == 1:
         print(diff)
     return diff < thresh
+
+
+def match_serving_table(debug=0):
+    img_screen = screenshot()
+    offset = Offset.update(img_screen)
+    tile1 = get_tile(img_screen, pos_serving_table1, offset)
+    tile2 = get_tile(img_screen, pos_serving_table2, offset)
+    covered1 = np.sum((tile1[..., 2] - tile1[..., 0]) > 30) < 3000
+    covered2 = np.sum((tile2[..., 2] - tile2[..., 0]) > 30) < 3000
+    if debug == 1:
+        print(covered1, covered2)
+    if covered1 and covered2:
+        return 2
+    elif covered1:
+        return 1
+    else:
+        return 0
 
 
 class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
@@ -216,7 +238,7 @@ class UIFunc(QMainWindow, Ui_UIView, QtStyleTools):
                         if event.state == 1:
                             on_press(event.code)
                 except UnpluggedError:
-                    time.sleep(0.001)
+                    time.sleep(0.1)
                     pass
         self.gamepad_listener = Thread(target=monitor_gamepad)
         self.gamepad_listener.daemon = True
@@ -319,14 +341,14 @@ class RobotThread(Thread):
             'lu-fw3', is_lpot_empty,
             'lu-fw4'
         ]
-        serve_list = ['rb', is_4th_dish_placed, 'rb-4th']
+        serve_list = ['rb', 'wait_4th', 'rb-4th']
         all_list = [
             'ru-start', is_cannoned_to_lu0,
             'lu-start1', is_chopped,
             *['lu-start2', is_chopped] * 6,
             'lu-start3', is_rpot_empty,
             'lu-start4', is_cannoned_to_rb,
-            'rb-start', is_4th_dish_placed,
+            'rb-start', 'wait_4th_2',
             'rb-4th',
             'lu-fw-b1', is_cannoned_to_ru,
             'ru-fw1', is_cannoned_to_lb,
@@ -375,7 +397,10 @@ class RobotThread(Thread):
             all_list[91] = 'ru-fw4-berry'
         if num_order != '29' and donut == 2:
             all_list[91] = 'ru-fw4-both'
-            all_list[94] = 'ru-bw1'
+            if num_order != '32X':
+                all_list[94] = 'ru-bw1'
+            else:
+                all_list[115] = 'ru-fw3'
         if num_order == '29':
             all_list[91] = 'ru-fw5'
             all_list[103] = 'ru-fw5'
@@ -384,16 +409,16 @@ class RobotThread(Thread):
             all_list[23] = 'lu-fw-b2'
             all_list[30] = 'lu-bw0-31'
             all_list[27] = 'wash3'
-            all_list.insert(21, is_4th_dish_placed)
+            all_list.insert(21, 'wait_4th_2')
             all_list.insert(22, 'rb-start-31')
         elif num_order in ['32', '32X']:
             all_list[16] = 'lu-start3-32'
             all_list[23] = 'lu-fw-b3'
             all_list[30] = 'lu-bw0-31'
             all_list[27] = 'wash'
-            all_list.insert(21, is_4th_dish_placed)
+            all_list.insert(21, 'wait_4th_2')
             all_list.insert(22, 'rb-start-31')
-            all_list.insert(21, is_4th_dish_placed)
+            all_list.insert(21, 'wait_4th_2')
             all_list.insert(22, 'rb-start-31')
             if num_order == '32X':
                 all_list[70] = 'lu-bw1-32'
@@ -408,20 +433,33 @@ class RobotThread(Thread):
                 del all_list[81:88]
                 all_list.insert(81, 'lu-fw-b3')
         if num_order != '32X' and onion:
-            all_list.insert(-40, 'lu-start2')
-            all_list.insert(-40, is_chopped)
+            all_list[-38] = 'lu-fw3-1'
+            all_list[-36] = 'lu-fw4-1'
 
         #####
         # all_list = [is_cannoned_to_rb, 'rb-start',
         #             is_4th_dish_placed, 'rb-start-31', is_4th_dish_placed, 'rb-4th', 'lu-fw5']
-        # all_list = [is_cannoned_to_rb, 'rb-start', is_4th_dish_placed, 'rb-start-31', is_4th_dish_placed, 'rb-4th']
+        # all_list = [is_cannoned_to_rb, 'rb']
         #####
         steps = len(all_list)
         i = 0
         while i < steps:
             task = all_list[i]
             if isinstance(task, str):
-                if task == 'wash2':
+                if task == 'wait_4th':
+                    table = 0
+                    while self.playing and table == 0:
+                        table = match_serving_table()
+                    if table == 2:
+                        self.run_script_once(script_dict[all_list[i+1]], thd=self)
+                    else:
+                        self.run_script_once(script_dict[all_list[i+1]+'-1'], thd=self)
+                    i += 1
+                elif task == 'wait_4th_2':
+                    while self.playing:
+                        if match_serving_table() == 2:
+                            break
+                elif task == 'wash2':
                     self.sleep(0.75)
                     self.wait_for(is_dirty_dish_placed)
                     self.run_script_once(script_dict['lb-take1'], thd=self)
